@@ -7,9 +7,15 @@ import {
   getProduct,
   getProducts,
 } from './controllers/product-controller.js';
-import { createOrder, getOrder } from './controllers/order-controller.js';
+import { createOrder, getOrders } from './controllers/order-controller.js';
+import {
+  checkToken,
+  getUser,
+  login,
+  register,
+} from './controllers/user-controller.js';
 
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 3004;
 
 const dbUrl = process.env.DB_URI;
 mongoose
@@ -55,5 +61,9 @@ app.post('/products', createProduct);
 app.get('/products/:category', getProducts);
 app.get('/product/:id', getProduct);
 
-app.post('/orders', createOrder);
-app.get('/orders/:id', getOrder);
+app.post('/orders', checkToken, createOrder);
+app.get('/orders', checkToken, getOrders);
+
+app.post('/register', register);
+app.post('/login', login);
+app.get('/user', checkToken, getUser);

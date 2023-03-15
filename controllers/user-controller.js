@@ -60,7 +60,7 @@ export async function login(req, res) {
       {
         _id: user._id,
       },
-      'secret123',
+      'sport-code',
       {
         expiresIn: '30d',
       }
@@ -99,7 +99,7 @@ export function checkToken(req, res, next) {
   const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
   if (token) {
     try {
-      const decoded = jwt.verify(token, 'secret123');
+      const decoded = jwt.verify(token, 'sport-code');
 
       req.userId = decoded._id;
       next();
